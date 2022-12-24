@@ -298,7 +298,7 @@ fn main_impl() -> Result<(), AppError> {
     let action = match operation_mode {
         OperationMode::List => CommentRewriterAction::NoChange,
         OperationMode::Modify => {
-            let retain: Box<dyn Fn(&str, &str) -> bool> = Box::new(|k, v| !delete_tags.matches(k, v));
+            let retain: Box<dyn Fn(&str, &str) -> bool + Send> = Box::new(|k, v| !delete_tags.matches(k, v));
             CommentRewriterAction::Modify { retain, append }
         }
         OperationMode::Replace => CommentRewriterAction::Replace(append),

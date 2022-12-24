@@ -11,7 +11,7 @@ pub enum CommentRewriterAction<'a> {
     NoChange,
     Modify {
         #[derivative(Debug = "ignore")]
-        retain: Box<dyn Fn(&str, &str) -> bool + 'a>,
+        retain: Box<dyn Fn(&str, &str) -> bool + 'a + Send>,
         append: DiscreteCommentList,
     },
     Replace(DiscreteCommentList),
